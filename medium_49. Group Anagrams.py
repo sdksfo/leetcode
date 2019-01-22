@@ -15,6 +15,6 @@ class Solution(object):
         hashmap = collections.defaultdict(list)
         for str_ in strs:
         	hashmap[''.join(sorted(str_))].append(str_)
-        return [hashmap[k] for k in hashmap]
+        return hashmap.values()
 
-print Solution().groupAnagrams([])
+print Solution().groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"])
