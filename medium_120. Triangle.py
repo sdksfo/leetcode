@@ -34,8 +34,23 @@ class Solution(object):
         		dp[row][col] = min(dp[row-1][col] + dp[row][col], dp[row-1][col+1] + dp[row][col])
         return min(dp[-1])
 
+class Solution(object):
+    def minimumTotal(self, triangle):
+        """
+        :type triangle: List[List[int]]
+        :rtype: int
+        """
+        min_cost = [0, sys.maxint]
+        for i in xrange(len(triangle)):
+            curr_cost = []
+            for j in xrange(len(triangle[i])):
+                curr_cost.append(min(min_cost[j-1] if j > 0 else min_cost[j], min_cost[j]) + triangle[i][j])
+            min_cost = curr_cost + [sys.maxint]
+        return min(min_cost)
+
 
 print Solution().minimumTotal([
      [2], [3,4], [9, 0, 0]
 ])
+
 
