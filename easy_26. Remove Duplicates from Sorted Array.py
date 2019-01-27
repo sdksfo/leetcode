@@ -12,16 +12,13 @@ class Solution(object):
         """
         if not nums: return 0
 
-        dup_idx, prev_element = None, nums[0]
+        first_dup = 1
 
         for i in xrange(1, len(nums)):
-        	if nums[i] == prev_element and not dup_idx:
-        		dup_idx = i
-        	if nums[i] != prev_element and dup_idx:
-        		nums[dup_idx] = nums[i]
-        		dup_idx += 1
-        	prev_element = nums[i]
+        	if nums[i] != nums[first_dup-1]:
+        		nums[first_dup] = nums[i]
+        		first_dup +=1
 
-        return dup_idx or len(nums)
+        return first_dup
 
-print Solution().removeDuplicates([1,1,2])
+print Solution().removeDuplicates([1,1,2,3,3,4])
