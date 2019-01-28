@@ -39,21 +39,16 @@ class Solution(object):
         :type nums: List[int]
         :rtype: void Do not return anything, modify nums in-place instead.
         """
-        if not nums:
-        	return nums
         last_peak = None
-        for i in xrange(1, len(nums)):
-        	if nums[i] > nums[i-1]:
-        		last_peak = i - 1
+
+        for i in xrange(1 if nums else 0, len(nums)):
+            last_peak = i - 1 if nums[i] > nums[i-1] else last_peak
 
         if last_peak is not None:
-        	min_idx = last_peak + 1
-        	for i in xrange(last_peak+1, len(nums)):
-        		if nums[min_idx] > nums[i] > nums[last_peak]:
-        			min_idx = i
-        	nums[min_idx], nums[last_peak] = nums[last_peak], nums[min_idx]
-        	nums[:] = nums[:last_peak+1]+sorted(nums[last_peak+1:])
+            min_idx = last_peak + 1 + min((val, idx) for idx, val in enumerate(nums[last_peak+1:]) if val > nums[last_peak])[1]
+            nums[min_idx], nums[last_peak] = nums[last_peak], nums[min_idx]
+            nums[:] = nums[:last_peak+1]+sorted(nums[last_peak+1:])
         else:
-        	nums[:] = nums[::-1]
+            nums[:] = nums[::-1]
 
-print Solution().nextPermutation([2,3,1,3,3])
+print Solution().nextPermutation([1,5,1])
