@@ -1,7 +1,7 @@
 
 # Explanation:
 
-# Same as unique paths problem, but with one additional step
+# Same as unique paths problem, but with one additional step:
 
 # We scan the last row and last column of the DP table and reset them to 0 instead of 1, if there is an obstacle
 # along the way
@@ -24,4 +24,4 @@ class Solution(object):
         		dp[row][col] = 0 if grid[row][col] else dp[row+1][col] + dp[row][col+1]
         return dp[0][0]
 
-print Solution().uniquePathsWithObstacles([[0,0]])
+print Solution().uniquePathsWithObstacles([[0,0], [0,0]])
