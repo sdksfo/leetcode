@@ -14,9 +14,14 @@ class Solution(object):
         :rtype: int
         """
         if grid[0][0] == 1: return 0
+
         for row in xrange(len(grid)):
         	for col in xrange(len(grid[0])):
-        		grid[row][col] = 0 if grid[row][col] else ((grid[row-1][col] if row>0 else 0) + (grid[row][col-1] if col > 0 else 0))
-        		grid[row][col] = 1 if not row and not col else grid[row][col]
+        		if row == col == 0:
+        			grid[row][col] = 1
+        		else:
+        			grid[row][col] = 0 if grid[row][col] else ((grid[row-1][col] if row>0 else 0) + (grid[row][col-1] if col > 0 else 0))
+
         return grid[-1][-1]
+
 print Solution().uniquePathsWithObstacles([[1]])
