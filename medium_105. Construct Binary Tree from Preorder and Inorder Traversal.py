@@ -1,7 +1,7 @@
 # Explanation
 
 # Similar to building a BST from a sorted array, where we start from the middle of the array which
-# is the root of the tree.
+# is the root of the BST.
 
 # Likewise, The first index of the preorder list is the root of the tree. We use this detail
 # to recursively build the left sub tree and right sub tree.
