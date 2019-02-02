@@ -6,12 +6,9 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        i, j = 0, len(nums) - 1
+        for i in xrange(len(nums)):
+        	for j in xrange(i+1, len(nums)):
+        		if nums[i] + nums[j] == target:
+        			return [i, j]
 
-        while i < j:
-        	if nums[i] + nums[j] == target:
-        		return [i, j]
-        	elif nums[i] + nums[j] > target:
-        		j -= 1
-        	else:
-        		i += 1
+print Solution().twoSum([3,2,4], 6)
