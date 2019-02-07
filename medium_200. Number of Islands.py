@@ -11,19 +11,18 @@ class Solution(object):
         :type grid: List[List[str]]
         :rtype: int
         """
-        rows, cols, seen, islands = len(grid), len(grid[0]) if grid else 0, set(), 0
+        rows, cols, islands = len(grid), len(grid[0]) if grid else 0, 0
 
-        def dfs(row, col, seen):
-            if row not in (-1, rows) and col not in (-1, cols) and (row, col) not in seen and grid[row][col] == '1':
-                seen.add((row, col))
-                dfs(row+1, col, seen), dfs(row-1, col, seen), dfs(row, col+1, seen), dfs(row, col-1, seen)
-            return seen
+        def dfs(row, col):
+            if row not in (-1, rows) and col not in (-1, cols) and grid[row][col] == '1':
+                grid[row][col] = 0
+                dfs(row+1, col), dfs(row-1, col), dfs(row, col+1), dfs(row, col-1)
 
         for row in xrange(rows):
             for col in xrange(cols):
-                if grid[row][col] == '1' and (row, col) not in seen:
+                if grid[row][col] == '1':
                     islands += 1
-                    seen = dfs(row, col, seen)
+                    dfs(row, col)
 
         return islands
 
