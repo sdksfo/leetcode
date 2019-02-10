@@ -36,5 +36,3 @@ class Solution(object):
             return max(root.val, lsum+root.val, rsum+root.val)
         dfs(root)
         return self.total_max
-
-print Solution().maxPathSum(nodes[0])
