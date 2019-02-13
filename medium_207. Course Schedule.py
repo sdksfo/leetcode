@@ -6,32 +6,30 @@ For detecting cycle, we check if the current neighbor is part of the recursion s
 """
 
 class Solution(object):
-    def canFinish(self, n, p):
+    def canFinish(self, courses, pre_req):
         """
         :type numCourses: int
         :type prerequisites: List[List[int]]
-        :rtype: bool
+        :rtype: List[int]
         """
-        adj_list = {i:[] for i in xrange(n)}
+        adjacency_list, visited = {course: [] for course in xrange(courses)}, set()
 
-        for [node, dep] in p:
-            adj_list[node].append(dep)
+        for req in pre_req:
+            adjacency_list[req[0]].append(req[1])
 
-        def has_cycle(node, visited, stack):
-            visited.add(node)
-            stack.add(node)
-            for neighbor in adj_list[node]:
-                if neighbor not in visited:
-                    if has_cycle(neighbor, visited, stack):
-                        return True
-                if neighbor in stack:
-                    return True
+        def check_loop(node, stack, visited):
+            if node in stack:
+                return False
+            if node in visited:
+                return True
+            stack.add(node), visited.add(node)
+            result = all([check_loop(neighbor, stack, visited) for neighbor in adjacency_list[node]])
             stack.remove(node)
+            return result
 
-        for node in xrange(n):
-          if has_cycle(node, set(), set()):
-              return False
-
+        for node in adjacency_list:
+            if not check_loop(node, set(), visited):
+                return False
         return True
 
 print Solution().canFinish(4, [[0,1],[0,2],[1,2],[1,0]])
