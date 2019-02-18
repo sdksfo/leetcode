@@ -13,8 +13,7 @@ class Solution(object):
         :rtype: int
         """
 
-        dp = A[0] if A else []
-        rows, cols = len(A), len(A[0]) if A else 0
+        rows, cols, dp = len(A), len(A[0]) if A else 0, A[0] if A else []
 
         for i in xrange(1, rows):
         	temp = []
