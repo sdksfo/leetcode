@@ -1,7 +1,7 @@
 
 """
-Sort the input dictionary in the order of their lengths and then iterate through the
-source string looking for the string.
+Sort the input dictionary in the order of their lengths and then use the two pointer technique
+to iterate through both the strings.
 """
 
 
