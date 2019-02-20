@@ -14,7 +14,6 @@ head2.next = ListNode(6)
 head2.next.next = ListNode(4)
 
 class Solution(object):
-
     def get_number(self, head):
         val = 0
         while head:
@@ -42,5 +41,4 @@ class Solution(object):
 node = Solution().addTwoNumbers(head1, head2)
 
 while node:
-    print node.val
     node = node.next
