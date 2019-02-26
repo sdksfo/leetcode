@@ -14,12 +14,8 @@ class Solution(object):
         valid_rows = set([idx for idx, row in enumerate(picture) if row.count('B') == 1])
         valid_cols = set([idx for idx, col in enumerate(zip(*picture)) if col.count('B') == 1])
 
-        # for row, col in itertools.product(range(rows), range(cols)):
-        #     if row in valid_rows and col in valid_cols and picture[row][col] == 'B':
-        #         pixels += 1
         for row, col in itertools.product(valid_rows, valid_cols):
-            if picture[row][col] == 'B':
-                pixels += 1
+            pixels += 1 if picture[row][col] == 'B' else 0
 
         return pixels
 
