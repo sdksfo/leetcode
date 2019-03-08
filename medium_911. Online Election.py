@@ -1,4 +1,3 @@
-
 import collections
 
 class TopVotedCandidate:
@@ -14,18 +13,14 @@ class TopVotedCandidate:
 
     def q(self, t):
         low, high = 0, len(self.persons) - 1
-
         while low <= high:
-            mid = low + (high - low) // 2
-            mid_ts, mid_cand = self.times[mid], self.persons[mid]
-
-            if mid_ts <= t:
-                best = mid_cand
+            mid = (high+low)/2
+            if self.times[mid] <= t:
+                person = self.persons[mid]
                 low = mid + 1
             else:
                 high = mid - 1
-
-        return best
+        return person
 
 obj = TopVotedCandidate([0,0,0,0,1],[0,6,39,52,75])
 
