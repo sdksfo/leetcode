@@ -1,13 +1,12 @@
 
-import random
-
 class Solution(object):
 
     def partitionArray(self, array, start, end):
         pivot_idx = start
         for i in xrange(start+1, len(array)):
             if array[i] < array[pivot_idx]:
-                array.insert(start, array.pop(i))
+                array[pivot_idx+1], array[i] = array[i], array[pivot_idx+1]
+                array[pivot_idx], array[pivot_idx+1] = array[pivot_idx+1], array[pivot_idx]
                 pivot_idx += 1
         return array, pivot_idx
 
@@ -28,4 +27,3 @@ class Solution(object):
         return array[pivot_idx]
 
 print Solution().findKthLargest([3,3,3,3,3,3,3,3,3], 8)
-
