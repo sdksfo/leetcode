@@ -26,11 +26,8 @@ class Solution(object):
         """
 
         output = []
-
-        while root and (root.left or root.right):
-            output.append(self.removeLeaf(root, []))
-
-        output.append([root.val]) if root else []
-
+        if root:
+            output.append([root.val])
+            while root.left or root.right:
+                output.append(self.removeLeaf(root, []))
         return output
-
