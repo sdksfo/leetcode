@@ -14,16 +14,20 @@ b) Or copy the chars that are on the screen. This makes the current chars on scr
 """
 
 class Solution(object):
-    def calcSteps(self, n, c, t):
-        if n == t:
-            return 0
-        if c > n or n < 0:
-            return float('inf')
-        return 1 + min(self.calcSteps(n-c, c, t+c), self.calcSteps(n, t, t))
-
     def minSteps(self, n):
         """
         :type n: int
         :rtype: int
         """
-        return 2 + self.calcSteps(n-2, 1, 2) if n > 1 else 0
+        cache = {}
+
+        def calcSteps(c, t):
+            if (c, t) not in cache:
+                if n == t:
+                    return 0
+                if t > n:
+                    return float('inf')
+                cache[c, t] = min(1 + calcSteps(c, t+c), 2 + calcSteps(t, t*2))
+            return cache[c, t]
+
+        return 2 + calcSteps(1, 2) if n > 1 else 0
