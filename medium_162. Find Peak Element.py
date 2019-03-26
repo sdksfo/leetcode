@@ -29,4 +29,4 @@ class Solution(object):
                 i = mid+1
         return i
 
-print Solution().findPeakElement([1,2])
+print Solution().findPeakElement([1,2,1,1,1,1])
