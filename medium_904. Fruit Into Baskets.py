@@ -42,3 +42,27 @@ class Solution(object):
         return max_fruits
 
 print Solution().totalFruit([3,3,3,1,2,1,1,2,3,3,4])
+
+class Solution(object):
+    def totalFruit(self, tree):
+        """
+        :type tree: List[int]
+        :rtype: int
+        """
+        if not tree: return 0
+
+        curr, prev, max_len, curr_len = (tree[0], 0), None, 0, 1
+
+        for idx, fruit in enumerate(tree[1:]):
+            idx += 1
+            if fruit == curr[0]:
+                curr_len += 1
+                curr = (fruit, idx)
+            elif not prev or fruit == prev[0]:
+                curr_len += 1
+                curr, prev = (fruit, idx), curr
+            else:
+                max_len = max(max_len, curr_len)
+                curr_len = idx - prev[1]
+                curr, prev = (fruit, idx), curr
+        return max(max_len, curr_len)
