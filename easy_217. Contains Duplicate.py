@@ -1,4 +1,16 @@
+"""
+Requirement:
 
+Check if an array has duplicates
+
+Approach:
+
+Use hashset to determine if element is duplicated
+
+Complexity:
+
+Time: O(n) Space: O(n)
+"""
 
 class Solution(object):
     def containsDuplicate(self, nums):
@@ -6,11 +18,10 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        hashtable = set()
-        for num in nums:
-        	if num in hashtable:
-        		return True
-        	hashtable.add(num)
-        return False
+        hashset = set()
 
-print Solution().containsDuplicate([])
+        for num in nums:
+        	if num in hashset: return True
+        	hashset.add(num)
+
+        return False

@@ -1,8 +1,19 @@
-
 """
-Send two pointers slow and fast pointers at spacing of 'n' between them.
-When the fast pointer reaches the end of the list, the second pointer is at the
-'n' th element.
+Requirement:
+
+Remove nth node from end of linked list
+
+Approach:
+
+1) Use floyd' slow and fast pointer approach
+2) The slow pointer should trail the fast pointer by a distance of 'n', such that when the fast pointer reaches
+   the end, the slow pointer is at 'n'th node from tail. We can then adjust the node references to remove it.
+
+Complexity:
+
+Time : O(n)
+Space: O(1)
+
 """
 
 class Solution(object):
@@ -12,25 +23,20 @@ class Solution(object):
         :type n: int
         :rtype: ListNode
         """
-        slow, fast = head, head
+        fast_ptr = copy_head = slow_ptr = head
 
         while n:
-        	fast = fast.next
+        	fast_ptr = fast_ptr.next
         	n -= 1
 
-        if not fast:
-        	head = head.next
-        	return head
+        if not fast_ptr: # implies the first node to be removed
+        	return copy_head.next
 
-        while fast:
-        	fast = fast.next
-        	prev = slow
-        	slow = slow.next
+        while fast_ptr:
+        	fast_ptr = fast_ptr.next
+        	prev_node = slow_ptr
+        	slow_ptr = slow_ptr.next
 
-        if slow.next:
-        	slow.val = slow.next.val
-        	slow.next = slow.next.next
-        else:
-        	prev.next = None
+        prev_node.next = slow_ptr.next
 
-        return head
+        return copy_head

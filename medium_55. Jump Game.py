@@ -1,23 +1,27 @@
+"""
+Requirement:
 
-# Explanation
+Given an array of non-negative integers, determine if you are able to reach the last index.
 
-# We keep a track for what is the maximum distance we can cover from a certain index. Once we reach the maximum
-# reachable distance, we try to again jump and see if we can maximise further.
+Approach:
 
-# Note: Referred this solution from EPI, chapter 2: Array
+1) Start from the first index and check how far we could go. Keep it as max_distance.
+2) In each point along the way from start index to max_distance, check if we could reach beyond the max_distance.
+3) If we could reach a distance farther than the distance computed in step 1), adjust the max_distance pointer accordingly. Rinse and repeat step 2) and 3)
+4) Return True if 2) and 3) takes to end of array else False
+
+Complexity:
+
+Time: O(n) Space: O(1)
+"""
+
 
 class Solution(object):
     def canJump(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: bool
-        """
-        max_reachable, last_index, i = 0, len(nums) - 1, 0
+        max_distance = 0
+        for i in xrange(len(nums)):
+            if i > max_distance: return False
+            max_distance = max(max_distance, i+nums[i])
+        return True
 
-        while i <= max_reachable and max_reachable < last_index:
-            max_reachable = max(max_reachable, nums[i]+i)
-            i += 1
-
-        return max_reachable >= last_index
-
-print Solution().canJump([5])
+print Solution().canJump([0])

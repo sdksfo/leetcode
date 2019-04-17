@@ -1,3 +1,18 @@
+"""
+Requirement:
+
+Given an input string, reverse the string word by word.
+
+Approach:
+
+1) Split string into list of words
+2) Return the reversed data separated by space
+
+Complexity:
+
+Time - O(n), Space - O(n)
+
+"""
 
 
 class Solution(object):
@@ -6,14 +21,6 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
-        output, bfr = [], ''
-        for i in xrange(len(s)-1, -1, -1):
-            if s[i] != ' ':
-                bfr += s[i]
-            elif bfr:
-                output.append(bfr[::-1])
-                bfr = ''
-        output.append(bfr[::-1]) if bfr else None
-        return ' '.join(output)
+        return ' '.join(filter(lambda x: x, s.split(' '))[::-1])
 
-print Solution().reverseWords("sky is blue")
+print Solution().reverseWords("a good   example")
