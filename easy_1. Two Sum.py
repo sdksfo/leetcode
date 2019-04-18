@@ -1,4 +1,5 @@
 
+
 class Solution(object):
     def twoSum(self, nums, target):
         """
@@ -6,10 +7,9 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        seen = {}
-        for i, d in enumerate(nums):
-        	if target - d in seen:
-        		return [seen[target-d], i]
-        	seen[d] = i
+        hashmap = {}
 
-print Solution().twoSum([3,2,4], 6)
+        for i, d in enumerate(nums):
+        	if target - d in hashmap:
+        		return [i, hashmap[target-d]]
+        	hashmap[d] = i
