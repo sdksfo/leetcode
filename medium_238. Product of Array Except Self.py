@@ -1,3 +1,10 @@
+"""
+a) Iterate twice, once forward and next backwards
+b) During forward iteration, store the products of all numbers to the left of current number in the o/p array
+c) During backward iteration, compute the product of all numbers to the right of current number but also update with the index in the o/p array.
+
+Time: O(n) Space: O(1)
+"""
 
 class Solution(object):
     def productExceptSelf(self, nums):
@@ -5,14 +12,14 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
-        if nums:
-        	output = [1]
-        	for i in xrange(1, len(nums)):
-        		output.append(nums[i-1]*output[-1])
-        	prod_after = 1
-        	for i in xrange(len(output)-2, -1, -1):
-        		prod_after *= nums[i+1]
-        		output[i] *= prod_after
-        	return output
+        output, before, after = [], 1, 1
 
-print Solution().productExceptSelf([1,2,0,4])
+        for num in nums:
+        	output.append(before)
+        	before *= num
+
+        for i in xrange(len(nums)-1, -1, -1):
+        	output[i] *= after
+        	after *= nums[i]
+
+        return output
