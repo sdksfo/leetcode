@@ -1,17 +1,10 @@
-
 """
-Problem:
+Approach:
 
-https://leetcode.com/problems/search-in-rotated-sorted-array/
+a) Even though the array is rotated, when we cut the array into two halves, atleast one side will be monotonically increasing.
+b) We will use this fact to determine if our target is lying on the left monotonic sequence or on the right monotonic sequence.
 
-Solution:
-
-Try to identify which side is sorted, and then depending on if target is reachable
-or not drive the binary search in that direction
-
-Time Complexity:
-
-O(logn)
+Time: O(logn) Space: O(1)
 """
 
 class Solution(object):
@@ -21,16 +14,22 @@ class Solution(object):
         :type target: int
         :rtype: int
         """
-        def get_item(i, j):
-            if i > j:
-                return -1
-            mid = (i+j)/2
-            if nums[mid] == target:
-                return mid
-            if nums[i] <= nums[mid]:
-                return get_item(i, mid-1) if nums[i] <= target < nums[mid] else get_item(mid+1, j)
-            if nums[mid] <= nums[j]:
-                return get_item(mid+1, j) if nums[mid] < target <= nums[j] else get_item(i, mid-1)
-        return get_item(0, len(nums)-1)
+        i, j = 0, len(nums) - 1
 
-print Solution().search([4,5,6,7,0,1,2], 3)
+        while i <= j:
+	        mid = (i + j)/2
+
+	        if nums[mid] == target:
+	        	return mid
+	        elif nums[i] <= nums[mid]: # left side is increasing
+	        	if nums[i] <= target < nums[mid]: # and number lies on the left side
+	        		j = mid - 1
+	        	else:
+	        		i = mid + 1
+	        elif nums[mid] <= nums[j]: # right side is increasing
+	        	if nums[mid] < target <= nums[j]: # and number lies on the right side
+	        		i = mid + 1
+	        	else:
+	        		j = mid - 1
+
+        return - 1
