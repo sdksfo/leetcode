@@ -1,5 +1,9 @@
+"""
+a) Iterate once and store a hashmap of row-val and col-val and the counts of 'B' in each row or col
+b) Iterate again and check for each black pixel, if its corresponding row and col values in the hashmap has count of 1
 
-"""Check right and down, marking each B as W if already seen. If lonely pixel add to the counter"""
+Time: O(m*n) Space: O(m+n)
+"""
 
 import itertools
 
@@ -9,14 +13,15 @@ class Solution(object):
         :type picture: List[List[str]]
         :rtype: int
         """
-        rows, cols, pixels = len(picture), len(picture[0]) if picture else 0,  0
+        if not picture: return 0
 
-        valid_rows = set([idx for idx, row in enumerate(picture) if row.count('B') == 1])
-        valid_cols = set([idx for idx, col in enumerate(zip(*picture)) if col.count('B') == 1])
+        rows, cols, row, col, ctr =  len(picture), len(picture[0]), collections.defaultdict(int), collections.defaultdict(int), 0
 
-        for row, col in itertools.product(valid_rows, valid_cols):
-            pixels += 1 if picture[row][col] == 'B' else 0
+        for r, c in itertools.product(range(rows), range(cols)):
+            if picture[r][c] == 'B':
+                row[r] += 1
+                col[c] += 1
 
-        return pixels
-
-print Solution().findLonelyPixel([["W","W","W"],["W","W","0"],["W","W","B"]])
+        for r, c in itertools.product(row.keys(), col.keys()):
+            if picture[r][c] == 'B' and row[r] == col[c] == 1:
+                ctr += 1
