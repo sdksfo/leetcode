@@ -13,7 +13,6 @@ ln: hval = min(c, cl-i), does that computation
 Time: O(nlogn)
 """
 
-
 class Solution(object):
     def hIndex(self, citations):
         """
