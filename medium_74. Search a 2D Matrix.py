@@ -7,6 +7,8 @@ If element == number, return True
 If element is greater than number, move left
 If element is lesser than number, move down
 If out of bounds return False
+
+Complexity: O(m+n)
 """
 
 class Solution(object):
@@ -16,15 +18,20 @@ class Solution(object):
         :type target: int
         :rtype: bool
         """
-        rows, cols = len(matrix), len(matrix[0]) if matrix else 0
+        if not matrix: return False
 
-        def search(row, col):
-        	if col < 0 or row == rows:
+        rows, cols = len(matrix), len(matrix[0])
+
+        def search(r, c):
+        	if r in (-1, rows) or c in (-1, cols):
         		return False
-        	if matrix[row][col] > target:
-        		return search(row, col-1)
-        	if matrix[row][col] < target:
-        		return search(row+1, col)
-        	return True
+        	if matrix[r][c] == target:
+        		return True
+        	elif matrix[r][c] > target:
+        		return search(r, c-1)
+        	else:
+        		return search(r+1, c)
 
         return search(0, cols-1)
+
+print Solution().searchMatrix([[1,   3,  5,  7]], 7)
