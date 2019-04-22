@@ -1,6 +1,26 @@
 
+# Based on https://leetcode.com/problems/online-election/discuss/191898/Anybody-has-a-magic-general-formula-for-Binary-Search
 
-# My solution - short circuits immediately
+class Solution(object):
+    def mySqrt(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        if not x: return 0
+
+        i, j = 1, (x/2)+1
+
+        while i < j-1:
+            mid = (i + j)/2
+            if (mid*mid) <= x:
+                i = mid
+            else:
+                j = mid
+
+        return i
+
+# Short circuits immediately
 
 class Solution(object):
     def mySqrt(self, x):
@@ -21,27 +41,3 @@ class Solution(object):
                 j = mid
 
         return i
-
-# Tristan's solution - exits when i and j cross over
-
-
-class Solution(object):
-    def mySqrt(self, x):
-        """
-        :type x: int
-        :rtype: int
-        """
-        if not x: return 0
-
-        i, j, best = 0, (x/2)+1, 1
-
-        while i <= j:
-            mid = (i + j)/2
-            if (mid*mid) <= x:
-                best = mid
-                i = mid + 1
-            else:
-                j = mid - 1
-
-        return best
-
