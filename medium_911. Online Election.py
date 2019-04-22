@@ -1,28 +1,35 @@
 import collections
 
-class TopVotedCandidate:
+
+class TopVotedCandidate(object):
 
     def __init__(self, persons, times):
-        c = collections.Counter()
-        self.persons, curr, self.times = [], 0, times
+        """
+        :type persons: List[int]
+        :type times: List[int]
+        """
+        self.winners, self.times = [], times
+        vote_count, counts = 0, collections.defaultdict(int)
+
         for person in persons:
-            c[person] += 1
-            if c[person] >= curr:
-                curr, cand = c[person], person
-            self.persons.append(cand)
+            counts[person] += 1
+            if counts[person] >= vote_count:
+                vote_count = counts[person]
+                winner = person
+            self.winners.append(winner)
 
     def q(self, t):
-        low, high = 0, len(self.persons) - 1
-        while low <= high:
-            mid = (high+low)/2
+        """
+        :type t: int
+        :rtype: int
+        """
+        i, j = 0, len(self.times)
+
+        while i < j-1:
+            mid = i + (j-i)/2
             if self.times[mid] <= t:
-                person = self.persons[mid]
-                low = mid + 1
+                i = mid
             else:
-                high = mid - 1
-        return person
+                j = mid
 
-obj = TopVotedCandidate([0,0,0,0,1],[0,6,39,52,75])
-
-for cm in [[45],[49],[59],[68],[42],[37],[99],[26],[78],[43]]:
-    print obj.q(cm[0])
+        return self.winners[i]
