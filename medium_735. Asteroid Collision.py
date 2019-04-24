@@ -15,7 +15,7 @@ class Solution(object):
                 if abs(stack[-1]) > abs(stack[-2]):
                     stack.pop(-2)
                 elif abs(stack[-1]) < abs(stack[-2]):
-                    stack.pop(-1)
+                    stack.pop()
                 else:
-                    stack.pop(-1), stack.pop(-1)
+                    stack.pop(), stack.pop()
         return stack
