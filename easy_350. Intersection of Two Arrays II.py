@@ -1,5 +1,4 @@
 
-from collections import defaultdict
 
 class Solution(object):
     def intersect(self, nums1, nums2):
@@ -8,15 +7,18 @@ class Solution(object):
         :type nums2: List[int]
         :rtype: List[int]
         """
-        hashmap1, hashmap2, output = defaultdict(int), defaultdict(int), []
-        for i in nums1:
-            hashmap1[i] += 1
-        for i in nums2:
-            hashmap2[i] += 1
-        for num in hashmap1:
-            if num in hashmap2:
-                output.extend([num]*min(hashmap1[num], hashmap2[num]))
+        nums1, nums2, i, j, output = sorted(nums1), sorted(nums2), 0, 0, []
+
+        while i < len(nums1) and j < len(nums2):
+        	if nums1[i] == nums2[j]:
+        		output.append(nums1[i])
+        		i += 1
+        		j += 1
+        	elif nums1[i] < nums2[j]:
+        		i += 1
+        	else:
+        		j += 1
 
         return output
 
-print Solution().intersect([4,9,5], [9,4,9,8,4])
+print Solution().intersect([1,2,2,1], [2,3,4,4])
