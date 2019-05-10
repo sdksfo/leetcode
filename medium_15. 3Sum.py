@@ -1,26 +1,29 @@
-
-
 class Solution(object):
     def threeSum(self, nums):
         """
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        nums, output = sorted(nums), set()
+        nums = sorted(nums)
 
-        for idx in xrange(len(nums)-1):
-            if idx > 0 and nums[idx] == nums[idx-1]: continue
-            i, j, expected = idx+1, len(nums)-1, 0-nums[idx]
+        prev, output = None, set()
+
+        for idx, num in enumerate(nums):
+            if nums[idx] == prev: continue
+
+            i, j, exp = idx+1, len(nums)-1, 0-nums[idx]
+
             while i < j:
-                if nums[i] + nums[j] == expected:
+                total = nums[i] + nums[j]
+                if total == exp:
                     output.add((nums[idx], nums[i], nums[j]))
                     i += 1
                     j -= 1
-                elif nums[i] + nums[j] < expected:
+                elif total < exp:
                     i += 1
                 else:
                     j -= 1
-            prev = nums[idx]
-        return list(list(i) for i in output)
 
-print Solution().threeSum([-2,0,0,2,2])
+            prev = nums[idx]
+
+        return [list(i) for i in output]
