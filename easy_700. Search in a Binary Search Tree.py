@@ -1,4 +1,5 @@
 
+
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -13,8 +14,13 @@ class Solution(object):
         :type val: int
         :rtype: TreeNode
         """
-        if not root:
-        	return None
-        if root.val == val:
-        	return root
-        return self.searchBST(root.left, val) or self.searchBST(root.right, val)
+        stack = []
+
+        while stack or root:
+        	if root:
+        		stack.append(root)
+        		root = root.left
+        	else:
+        		root = stack.pop()
+        		if root.val >= val: return root if root.val == val else None
+        		root = root.right
