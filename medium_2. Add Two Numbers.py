@@ -1,7 +1,4 @@
 
-"""
-Compute the sum of the two linked list and create a new linked list
-"""
 
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
@@ -10,22 +7,16 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
-        def get_num(node, power=0):
-        	if node:
-	        	return (node.val *(10**power)) + get_num(node.next, power+1)
-	        return 0
+        dummy = prev = ListNode(None)
+        carry = 0
 
-        def create_list(result):
-        	prev = head = None
-        	while result:
-        		node = ListNode(result%10)
-        		if prev:
-        			prev.next = node
-        		head = head or node
-        		prev = node
-        		result = result/10
-        	return head or ListNode(0)
+        while l1 or l2 or carry:
+            total = l1.val if l1 else 0 + l2.val if l2 else 0 + carry
+            carry, val = divmod(total, 10)
+            node = ListNode(val)
+            prev.next = node
+            prev = node
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
 
-        return create_list(get_num(l1) + get_num(l2))
-
-node = Solution().addTwoNumbers(node2, node5)
+        return dummy.next
