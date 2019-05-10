@@ -1,30 +1,29 @@
 
-class TreeNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
 
-nodes = [TreeNode(i) for i in xrange(21)]
-
-nodes[1].left = TreeNode(1)
-nodes[10].right = nodes[15]
-nodes[15].left = nodes[6]
-nodes[15].right = nodes[20]
-
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
 class Solution(object):
-    prev, valid = None, True
     def isValidBST(self, root):
         """
         :type root: TreeNode
         :rtype: bool
         """
-        if root and self.valid:
-            self.isValidBST(root.left)
-            self.valid = False if self.prev != None and root.val <= self.prev else self.valid
-            self.prev = root.val
-            self.isValidBST(root.right)
-        return self.valid
+        stack, prev = [], None
 
-print Solution().isValidBST(nodes[1])
+        while stack or root:
+        	if root:
+        		stack.append(root)
+        		root = root.left
+        	else:
+        		root = stack.pop()
+        		if prev is not None and root.val <= prev:
+        			return False
+        		prev = root.val
+        		root = root.right
+
+        return True
