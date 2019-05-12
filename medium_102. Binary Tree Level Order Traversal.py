@@ -1,9 +1,4 @@
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+
 
 class Solution(object):
     def levelOrder(self, root):
@@ -20,4 +15,3 @@ class Solution(object):
             queue = filter(lambda x: x, [m for n in queue for m in n.left, n.right])
         
         return output
-
