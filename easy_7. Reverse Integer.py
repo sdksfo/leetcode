@@ -1,17 +1,19 @@
-
-
 class Solution(object):
     def reverse(self, x):
         """
         :type x: int
         :rtype: int
         """
-        num, total = abs(x), 0
+        output, sign, x = 0, x > 0, abs(x)
 
-        while num:
-        	total = (total*10) + (num%10)
-        	num = num/10
+        while x:
+        	output = (output*10) + (x%10)
+        	x = x/10
 
-        return 0 if total > (2**31)-1 else (total if x > 0 else -total)
-
-print Solution().reverse(1534236469)
+        output = output if sign else -output
+        
+        if (output < (-2 ** 31)) or (output > (2 ** 31)-1):
+            return 0
+        
+        return output    
+ 
