@@ -7,3 +7,4 @@ class Solution(object):
         :rtype: int
         """
         return reduce(lambda x,y: x^y, nums)
+
