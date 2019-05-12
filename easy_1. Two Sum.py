@@ -13,3 +13,4 @@ class Solution(object):
         	if target - d in hashmap:
         		return [i, hashmap[target-d]]
         	hashmap[d] = i
+
