@@ -20,3 +20,4 @@ class Solution(object):
             queue = filter(lambda x: x, [m for n in queue for m in n.left, n.right])
         
         return output
+
