@@ -1,7 +1,9 @@
-
-# Explanation
-
-# Do a BFS of the tree by using a queue and null to separate each levels.
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
 class Solution(object):
     def levelOrder(self, root):
@@ -9,16 +11,12 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[List[int]]
         """
-        outer, inner, roots = [], [], [root, None]
-        while roots:
-        	root = roots.pop(0)
-        	if root:
-        		inner.append(root.val)
-        		roots.extend(filter(lambda x: x, [root.left, root.right]))
-        	else:
-        		outer.append(inner)
-        		inner = []
-        		roots.append(None) if roots else roots
-        return outer
-
-print Solution().levelOrder(node1)
+        if not root: return []
+        
+        output, queue = [], [root]
+        
+        while queue:
+            output.append([n.val for n in queue])
+            queue = filter(lambda x: x, [m for n in queue for m in n.left, n.right])
+        
+        return output
